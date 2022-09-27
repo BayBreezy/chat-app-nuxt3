@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chatrooms",
+  "info": {
+    "singularName": "chatroom",
+    "pluralName": "chatrooms",
+    "displayName": "Chatroom",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "isGroup": {
+      "type": "boolean",
+      "default": false
+    },
+    "chatAdmin": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "chatroomsOwned"
+    },
+    "messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::message.message",
+      "mappedBy": "chatroom"
+    },
+    "lastMessage": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::message.message"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "chats"
+    }
+  }
+}
