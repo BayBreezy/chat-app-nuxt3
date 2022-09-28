@@ -17,9 +17,6 @@
     "lastName": {
       "type": "string"
     },
-    "bio": {
-      "type": "richtext"
-    },
     "image": {
       "allowedTypes": [
         "images"
@@ -27,11 +24,14 @@
       "type": "media",
       "multiple": false
     },
+    "bio": {
+      "type": "richtext"
+    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "profile"
+      "inversedBy": "profile"
     }
   }
 }

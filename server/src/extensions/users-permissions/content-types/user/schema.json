@@ -69,23 +69,17 @@
       "target": "api::profile.profile",
       "inversedBy": "user"
     },
-    "chatroomsOwned": {
+    "chatrooms": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::chatroom.chatroom",
-      "mappedBy": "chatAdmin"
+      "mappedBy": "admins"
     },
     "messagesSent": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::message.message",
       "mappedBy": "sender"
-    },
-    "chats": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::chatroom.chatroom",
-      "inversedBy": "users"
     }
   }
 }

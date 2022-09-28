@@ -1,43 +1,49 @@
-import { Socket } from "socket.io";
-import { Strapi } from "@strapi/strapi";
-
 module.exports = ({ env }) => ({
+  // Transform data
   transformer: {
     enabled: true,
     config: {
+      prefix: "/api/",
       responseTransforms: {
         removeAttributesKey: true,
         removeDataKey: true,
       },
     },
   },
-  // Socket io config
+
+  // Socket IO config
   io: {
     enabled: true,
     config: {
+      /**@type {import('socket.io').ServerOptions} */
       IOServerOptions: {
-        cors: { origin: "http://localhost:5000", methods: ["GET"] },
+        cors: { origin: env("CLIENT_URLS", "http://localhost:3000") },
       },
       contentTypes: {},
       events: [
         {
           name: "connection",
-          handler: ({ strapi }, socket: Socket) => {
+          handler: ({ strapi }, socket) => {
             strapi.log.info(`[io] new connection with id ${socket.id}`);
-
-            //Listen for say hi
             socket.on("say hi", (data) => {
-              console.log("Hey");
               console.log(data);
-              strapi.$io.raw("send hi", "Love from Strapi");
+              // send response to everyone connected to the server
+              strapi.$io.raw(
+                "hi was sent",
+                `Someone sent a HI with ID ${socket.id}`
+              );
+
+              // send to this person only that sent the message
+              strapi.$io.raw("thank you", `Thanks for reaching out ✨.`, {
+                room: socket.id,
+              });
             });
           },
         },
       ],
     },
   },
-
-  //fuzzy search
+  // Fuzzy Search
   "fuzzy-search": {
     enabled: true,
     config: {
@@ -48,23 +54,10 @@ module.exports = ({ env }) => ({
           fuzzysortOptions: {
             characterLimit: 300,
             threshold: -600,
-            limit: 20,
+            limit: 10,
             keys: [
               {
                 name: "message",
-                weight: 100,
-              },
-            ],
-          },
-        },
-        {
-          uid: "api::chatroom.chatroom",
-          modelName: "chatroom",
-          fuzzysortOptions: {
-            characterLimit: 500,
-            keys: [
-              {
-                name: "name",
                 weight: 100,
               },
             ],

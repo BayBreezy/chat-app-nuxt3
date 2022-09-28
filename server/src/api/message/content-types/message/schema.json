@@ -13,8 +13,7 @@
   "pluginOptions": {},
   "attributes": {
     "message": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "media": {
       "type": "media",
@@ -27,17 +26,17 @@
         "audios"
       ]
     },
-    "sender": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "messagesSent"
-    },
     "chatroom": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::chatroom.chatroom",
       "inversedBy": "messages"
+    },
+    "sender": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "messagesSent"
     },
     "readBy": {
       "type": "relation",
