@@ -22,6 +22,9 @@ html {
 		@apply px-5 py-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-all inline-block
 		text-center;
 	}
+	.btn-icon {
+		@apply p-4 rounded-full bg-gray-100 inline-flex hover:bg-gray-200 transition-all;
+	}
 }
 
 /* Scrollbar */

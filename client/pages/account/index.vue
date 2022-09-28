@@ -8,10 +8,7 @@
 						:src="user.profile.image.url"
 						:alt="`${user.username}'s Image`"
 					/>
-					<span
-						v-else
-						class="p-4 rounded-full bg-gray-100 inline-flex group-hover:bg-gray-200 transition-all"
-					>
+					<span v-else class="btn-icon">
 						<Icon size="24" name="ph:user" />
 					</span>
 					<div>
@@ -25,8 +22,11 @@
 						<Icon name="ph:caret-down-light" />
 					</span>
 				</button>
-				<div class="flex items-center">
-					<button class="bg-gray-100 p-3 rounded-full inline-flex hover:bg-gray-200 transition-all">
+				<div class="flex items-center space-x-3">
+					<button class="btn-icon p-3">
+						<Icon name="ph:plus" size="22" />
+					</button>
+					<button class="btn-icon p-3">
 						<Icon name="ph:bell" size="22" />
 					</button>
 				</div>
@@ -51,9 +51,7 @@
 							<template v-for="c in 25" :key="`chat-${c}`">
 								<li class="border-b border-gray-100 hover:bg-gray-50">
 									<button class="flex items-center space-x-3 text-left group w-full py-3 pr-3">
-										<span
-											class="p-4 rounded-full bg-gray-100 inline-flex group-hover:bg-gray-200 transition-all"
-										>
+										<span class="btn-icon">
 											<Icon size="24" name="ph:user" />
 										</span>
 										<div class="grow">
@@ -84,9 +82,7 @@
 				<!-- Chat header -->
 				<div class="h-16 shadow shrink-0 flex items-center px-4 justify-between">
 					<button class="inline-flex items-center space-x-3 text-left group">
-						<span
-							class="p-3 rounded-full bg-gray-100 inline-flex group-hover:bg-gray-200 transition-all"
-						>
+						<span class="p-3 btn-icon">
 							<Icon size="22" name="ph:user" />
 						</span>
 						<div class="grow">
@@ -97,32 +93,44 @@
 						</div>
 					</button>
 					<div class="flex items-center">
-						<button>
+						<button class="btn-icon p-3">
 							<Icon name="heroicons:ellipsis-vertical-solid" size="24" />
 						</button>
 					</div>
 				</div>
 				<!-- List of messages -->
 				<SimpleBar class="grow h-full overflow-y-auto">
-					<div class="p-5 space-y-2">
-						<template v-for="c in 50" :key="`chatLoaded-${c}`">
-							<div class="p-2 rounded-xl max-w-[60%] shadow bg-white">
-								<p class="text-sm">
+					<div class="p-5 space-y-3">
+						<template v-for="c in 10" :key="`chatLoaded-${c}`">
+							<div v-if="c % 2 === 0" class="p-2 rounded-xl max-w-[60%] border">
+								<p class="">
 									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, doloribus fugit
 									quas dolores provident minima aspernatur. Unde assumenda sequi repellendus
 									quisquam placeat optio consequuntur eius distinctio eos, pariatur cum natus?
 								</p>
-								<span class="text-xs">12:14PM</span>
+								<span class="text-xs inline-block mt-2">12:14PM</span>
+							</div>
+							<div
+								v-else
+								class="p-2 ml-auto rounded-xl max-w-[60%] border border-primary-100 bg-primary-50"
+							>
+								<p class="">
+									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, doloribus fugit
+									quas dolores provident minima aspernatur. Unde assumenda sequi repellendus
+									quisquam placeat optio consequuntur eius distinctio eos, pariatur cum natus?
+								</p>
+								<span class="text-xs inline-block mt-2">12:14PM</span>
 							</div>
 						</template>
 					</div>
 				</SimpleBar>
 				<!-- chat input -->
-				<div class="h-16 border-t bg-orange-200 shrink-0">
+				<div class="border-t bg-white shrink-0 flex space-x-4 items-center lg:px-6 lg:py-3">
+					<!-- Icon picker -->
 					<Popover class="relative" v-slot="{ open }">
 						<PopoverButton>
-							<Icon v-if="!open" name="heroicons:face-smile" size="24" />
-							<Icon v-else name="ph:keyboard" size="24" />
+							<Icon class="text-gray-500" v-if="!open" name="heroicons:face-smile" size="28" />
+							<Icon class="text-gray-500" v-else name="ph:keyboard" size="28" />
 						</PopoverButton>
 						<transition name="fade">
 							<PopoverPanel class="absolute z-10 bg-white -top-[330px]">
@@ -132,6 +140,22 @@
 							</PopoverPanel>
 						</transition>
 					</Popover>
+					<button type="button">
+						<Icon class="text-gray-500" name="ph:paperclip" size="26" />
+					</button>
+					<div class="grow">
+						<ClientOnly>
+							<resize-textarea
+								:minHeight="42"
+								:rows="1"
+								class="input"
+								:maxHeight="100"
+							></resize-textarea>
+						</ClientOnly>
+					</div>
+					<button type="button">
+						<Icon class="text-gray-500" name="fluent:send-24-regular" size="26" />
+					</button>
 				</div>
 			</div>
 		</main>

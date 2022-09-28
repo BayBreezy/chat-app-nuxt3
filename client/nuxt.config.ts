@@ -12,6 +12,9 @@ export default defineNuxtConfig({
 		useStylesheet: true,
 		download: false,
 	},
+	build: {
+		transpile: ["@headlessui/vue"],
+	},
 	strapi: {
 		cookie: {
 			maxAge: 60 * 60 * 24 * 7,
