@@ -13,7 +13,7 @@
 					>
 						<div
 							@click="close(notification.id)"
-							class="flex z-50 w-full max-w-sm mx-auto px-4 py-3 space-x-3 pointer-events-auto cursor-pointer overflow-hidden bg-white rounded-lg shadow-md"
+							class="flex mb-3 z-50 w-full max-w-sm mx-auto px-4 py-3 space-x-3 pointer-events-auto cursor-pointer overflow-hidden bg-white rounded-lg shadow-md"
 							v-for="notification in notifications"
 							:key="notification.id"
 						>

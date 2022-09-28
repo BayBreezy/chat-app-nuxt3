@@ -16,6 +16,7 @@
     "better-sqlite3": "7.4.6",
     "strapi-plugin-fuzzy-search": "^1.10.0-beta.1",
     "strapi-plugin-io": "^1.1.2",
+    "strapi-plugin-populate-deep": "^0.1.2",
     "strapi-plugin-transformer": "^2.1.0"
   },
   "author": {

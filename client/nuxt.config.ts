@@ -20,7 +20,11 @@ export default defineNuxtConfig({
 			maxAge: 60 * 60 * 24 * 7,
 		},
 		auth: {
-			populate: "profile",
+			populate: {
+				profile: {
+					populate: ["image"],
+				},
+			},
 		},
 	},
 });

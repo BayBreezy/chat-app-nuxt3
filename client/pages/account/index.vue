@@ -2,25 +2,28 @@
 	<div>
 		<header class="sticky top-0 border-b border-gray-200 bg-white/50 backdrop-blur">
 			<div class="h-20 lg:px-5 flex items-center justify-between">
-				<button class="flex items-center space-x-3 text-left group">
+				<button
+					@click="$refs.userMenu.openModal()"
+					class="flex items-center space-x-3 text-left group"
+				>
 					<img
 						v-if="userHasProfile && user.profile.image"
-						:src="user.profile.image.url"
+						:src="apiUrl + user.profile.image.url"
 						:alt="`${user.username}'s Image`"
+						class="object-cover w-10 h-10 rounded-full"
 					/>
 					<span v-else class="btn-icon">
 						<Icon size="24" name="ph:user" />
 					</span>
 					<div>
-						<h2 class="font-semibold" v-if="userHasProfile">
-							{{ user.profile.firstName }} {{ user.profile.firstName }}
+						<h2
+							class="font-semibold"
+							v-if="userHasProfile && user.profile.firstName && user.profile.lastName"
+						>
+							{{ user.profile.firstName }} {{ user.profile.lastName }}
 						</h2>
 						<h2 class="font-semibold" v-else>@{{ user.username }}</h2>
-						<p class="text-sm">{{ user.email }}</p>
 					</div>
-					<span>
-						<Icon name="ph:caret-down-light" />
-					</span>
 				</button>
 				<div class="flex items-center space-x-3">
 					<button class="btn-icon p-3">
@@ -102,7 +105,7 @@
 				<SimpleBar class="grow h-full overflow-y-auto">
 					<div class="p-5 space-y-3">
 						<template v-for="c in 10" :key="`chatLoaded-${c}`">
-							<div v-if="c % 2 === 0" class="p-2 rounded-xl max-w-[60%] border">
+							<div v-if="c % 2 === 0" class="p-2 rounded-xl max-w-[60%] bg-gray-50">
 								<p class="">
 									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, doloribus fugit
 									quas dolores provident minima aspernatur. Unde assumenda sequi repellendus
@@ -110,16 +113,13 @@
 								</p>
 								<span class="text-xs inline-block mt-2">12:14PM</span>
 							</div>
-							<div
-								v-else
-								class="p-2 ml-auto rounded-xl max-w-[60%] border border-primary-100 bg-primary-50"
-							>
+							<div v-else class="p-2 ml-auto rounded-xl max-w-[60%] text-white bg-primary">
 								<p class="">
 									Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, doloribus fugit
 									quas dolores provident minima aspernatur. Unde assumenda sequi repellendus
 									quisquam placeat optio consequuntur eius distinctio eos, pariatur cum natus?
 								</p>
-								<span class="text-xs inline-block mt-2">12:14PM</span>
+								<span class="text-xs inline-block mt-2 text-right">12:14PM</span>
 							</div>
 						</template>
 					</div>
@@ -159,6 +159,8 @@
 				</div>
 			</div>
 		</main>
+		<!-- User menu slide over -->
+		<Usermenu ref="userMenu" />
 	</div>
 </template>
 
@@ -166,6 +168,7 @@
 	import { SimpleBar } from "simplebar-vue3";
 	import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 	const user = useStrapiUser();
+	const apiUrl = useApiUrl();
 	const userHasProfile = computed(() => {
 		return !!user.value.profile;
 	});
