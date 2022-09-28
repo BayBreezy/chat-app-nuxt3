@@ -80,7 +80,17 @@
 					</div>
 				</SimpleBar>
 			</div>
-			<div class="grow h-full"></div>
+			<div class="grow h-full flex flex-col">
+				<!-- Chat header -->
+				<div class="h-16 bg-fuchsia-200 shrink-0"></div>
+				<div class="grow h-full overflow-y-auto">
+					<ClientOnly>
+						<EmojiPicker :native="true" @select="onSelectEmoji" />
+					</ClientOnly>
+				</div>
+				<!-- chat input -->
+				<div class="h-16 border-t bg-orange-200 shrink-0"></div>
+			</div>
 		</main>
 	</div>
 </template>
@@ -91,6 +101,10 @@
 	const userHasProfile = computed(() => {
 		return !!user.value.profile;
 	});
+
+	function onSelectEmoji(emoji) {
+		console.log(emoji);
+	}
 </script>
 
 <style></style>
