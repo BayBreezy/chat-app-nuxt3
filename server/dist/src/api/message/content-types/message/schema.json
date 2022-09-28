@@ -1,0 +1,48 @@
+{
+    "kind": "collectionType",
+    "collectionName": "messages",
+    "info": {
+        "singularName": "message",
+        "pluralName": "messages",
+        "displayName": "Message",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "message": {
+            "type": "string",
+            "required": true
+        },
+        "media": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "sender": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.user",
+            "inversedBy": "messagesSent"
+        },
+        "chatroom": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::chatroom.chatroom",
+            "inversedBy": "messages"
+        },
+        "readBy": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "plugin::users-permissions.user"
+        }
+    }
+}
