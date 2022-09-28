@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 	tailwindcss: {
 		cssPath: "~/assets/main.css",
 	},
+	css: ["simplebar/dist/simplebar.min.css"],
 	googleFonts: {
 		families: {
 			Inter: [100, 200, 300, 400, 500, 600, 700, 800, 900],

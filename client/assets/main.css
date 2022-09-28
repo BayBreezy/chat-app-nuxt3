@@ -24,6 +24,13 @@ html {
 	}
 }
 
+/* Scrollbar */
+.simplebar-scrollbar::before {
+	background-color: theme("colors.gray.400") !important;
+}
+.simplebar-hover::before {
+	background-color: theme("colors.gray.600") !important;
+}
 /* Transitions */
 .fade-enter-active,
 .fade-leave-active {
