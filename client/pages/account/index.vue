@@ -26,7 +26,7 @@
 					</div>
 				</button>
 				<div class="flex items-center space-x-3">
-					<button class="btn-icon p-3">
+					<button @click="$refs.createChat.openModal()" class="btn-icon p-3">
 						<Icon name="ph:plus" size="22" />
 					</button>
 					<button class="btn-icon p-3">
@@ -161,6 +161,8 @@
 		</main>
 		<!-- User menu slide over -->
 		<Usermenu ref="userMenu" />
+		<!-- Create chat modal -->
+		<CreateChat ref="createChat" />
 	</div>
 </template>
 
