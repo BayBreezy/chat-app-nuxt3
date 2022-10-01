@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<TransitionRoot appear :show="open" as="template">
-			<Dialog as="div" @close="closeModal" class="relative">
+			<Dialog :initial-focus="searchInput" as="div" @close="closeModal" class="relative">
 				<!-- Overlay -->
 				<TransitionChild
 					as="template"
@@ -26,12 +26,37 @@
 						>
 							<DialogPanel class="w-full p-5 max-w-md bg-white z-30 shadow rounded-xl">
 								<div class="flex items-center justify-between">
-									<DialogTitle as="h1" class="font-medium text-lg">Create chat</DialogTitle>
+									<DialogTitle as="h1" class="font-medium text-xl">Create chat</DialogTitle>
 									<button class="btn-icon p-3" @click="closeModal()">
 										<Icon name="ph:x" size="18" />
 									</button>
 								</div>
-								<div></div>
+								<div class="mt-3">
+									<p class="text-sm text-gray-600 mb-3">
+										Search for the person you want to chat with
+									</p>
+
+									<label class="sr-only" for="search">Search for user to chat with</label>
+									<input
+										ref="searchInput"
+										class="input"
+										v-model="search"
+										type="search"
+										name="search_user"
+										placeholder="Type here..."
+									/>
+								</div>
+								<ul>
+									<template v-for="u in usersFound" :key="u.id">
+										<li>
+											<button class="w-full rounded-md flex items-center">
+												<div>
+													<h1>{{ u.username }}</h1>
+												</div>
+											</button>
+										</li>
+									</template>
+								</ul>
 							</DialogPanel>
 						</TransitionChild>
 					</div>
@@ -55,12 +80,37 @@
 	const openModal = () => (open.value = true);
 	const closeModal = () => (open.value = false);
 
-	const apiUrl = useApiUrl();
 	const user = useStrapiUser();
 	const userHasProfile = computed(() => {
 		return !!user.value.profile;
 	});
 
+	// search term
+	const search = ref("");
+	// Search ref
+	const searchInput = ref();
+
+	// List of users found to chat with
+	const usersFound = ref([]);
+
+	// Functon used to search for users
+	const findUser = async () => {
+		try {
+			if (!search.value || (search.value && search.value.length < 2)) return;
+			const results = await useSearchUser(search.value);
+			usersFound.value = results || [];
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	watch(search, (v) => {
+		if (v) {
+			findUser();
+		} else {
+			usersFound.value = [];
+		}
+	});
 	// expose functions to parent
 	defineExpose({
 		openModal,

@@ -84,7 +84,7 @@
 <script setup>
 	import { Dialog, TransitionChild, TransitionRoot, DialogPanel } from "@headlessui/vue";
 
-	const { update } = useStrapi4();
+	const { update } = useStrapi();
 	const client = useStrapiClient();
 
 	const open = ref(false);

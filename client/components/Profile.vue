@@ -108,7 +108,7 @@
 	const initProfileValues = computed(() => {
 		return user.value.profile;
 	});
-	const { delete: _delete, create, update } = useStrapi4();
+	const { delete: _delete, create, update } = useStrapi();
 	const client = useStrapiClient();
 
 	async function createProfile() {
